@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:http/http.dart';
+import 'package:sliding_switch/sliding_switch.dart';
 
 class ListWidget extends StatelessWidget {
   @override
@@ -16,13 +17,13 @@ class ListWidget extends StatelessWidget {
         slivers: <Widget>[
           SliverStaggeredGrid.count(
             crossAxisCount: 4,
-            mainAxisSpacing: 14,
-            crossAxisSpacing: 14,
+            mainAxisSpacing: 12,
+            crossAxisSpacing: 12,
             staggeredTiles: const <StaggeredTile>[
-              StaggeredTile.count(2, 2.5),
-              StaggeredTile.count(2, 1.8),
+              StaggeredTile.count(2, 2.7),
+              StaggeredTile.count(2, 2),
               StaggeredTile.count(2, 3.2),
-              StaggeredTile.count(2, 1.8),
+              StaggeredTile.count(2, 2),
             ],
             children: <Widget>[
               ClipRRect(
@@ -30,7 +31,36 @@ class ListWidget extends StatelessWidget {
                 child: Container(
                   padding: const EdgeInsets.all(7),
                   color: Color(0xffffffff),
-                  child: Column(),
+                  child: Column(
+                    children: <Widget>[
+                      SizedBox(height: 10),
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          '   ESD LED',
+                          style: TextStyle(
+                            fontFamily: 'sen',
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      Center(
+                        child: Icon(
+                          Icons.wb_incandescent,
+                          size: 80,
+                          color: Colors.grey,
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                      SlidingSwitch(
+                        value: false,
+                        width: 130,
+                        onChanged: (bool value) {
+                          print(value);
+                        },
+                      )
+                    ],
+                  ),
                 ),
               ),
               ClipRRect(
@@ -38,6 +68,29 @@ class ListWidget extends StatelessWidget {
                 child: Container(
                   padding: const EdgeInsets.all(7),
                   color: Color(0xffFB7B4A),
+                  child: Column(
+                    children: <Widget>[
+                      SizedBox(height: 10),
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          '  Temperature',
+                          style:
+                              TextStyle(fontFamily: 'sen', color: Colors.white),
+                        ),
+                      ),
+                      Center(
+                        child: Text(
+                          '20',
+                          style: TextStyle(
+                            fontFamily: 'sen',
+                            color: Colors.white,
+                            fontSize: 70,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
               ClipRRect(
@@ -52,6 +105,29 @@ class ListWidget extends StatelessWidget {
                 child: Container(
                   padding: const EdgeInsets.all(7),
                   color: Color(0xff6D7DD2),
+                  child: Column(
+                    children: <Widget>[
+                      SizedBox(height: 10),
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          '  Humidity',
+                          style:
+                              TextStyle(fontFamily: 'sen', color: Colors.white),
+                        ),
+                      ),
+                      Center(
+                        child: Text(
+                          '20',
+                          style: TextStyle(
+                            fontFamily: 'sen',
+                            color: Colors.white,
+                            fontSize: 70,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],

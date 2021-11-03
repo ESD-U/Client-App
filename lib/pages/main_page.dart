@@ -55,6 +55,7 @@ class _MainPageState extends State<MainPage> {
                   ),
                 ),
               ),
+              SizedBox(height: 20),
               new Expanded(
                 child: ListWidget(),
               ),
