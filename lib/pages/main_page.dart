@@ -1,12 +1,7 @@
-import 'dart:convert';
-
 import 'package:esdu/widgets/list_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
 
-import 'package:sse/client/sse_client.dart';
-import 'package:sse/server/sse_handler.dart';
-import 'package:shelf/shelf_io.dart' as io;
+import 'package:sse_client/sse_client.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key key}) : super(key: key);
@@ -16,26 +11,23 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  SseClient channel;
+
+  String temp;
+  String humi;
+
+  @protected
+  @mustCallSuper
   void initState() {
     super.initState();
-    getData();
-    //streamFiles();
-  }
 
-  double temp;
-  double humi;
-
-  Future<String> getData() async {
-    var response =
-        await get(Uri.parse('https://esdu.herokuapp.com/value/recent'));
-    this.setState(() {
-      String data = response.body;
-      print(data);
-      var currentData = jsonDecode(data);
-      temp = currentData['temperature'];
-      humi = currentData['humidity'];
+    channel = SseClient.connect(Uri.parse("https://esdu.herokuapp.com/value"));
+    channel.stream.listen((event) {
+      this.setState(() {
+        temp = event.temperature;
+        humi = event.humidity;
+      });
     });
-    return "Success";
   }
 
   @override
