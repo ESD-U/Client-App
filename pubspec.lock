@@ -57,6 +57,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.3"
+  date_utils:
+    dependency: transitive
+    description:
+      name: date_utils
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.0+3"
+  eventsource:
+    dependency: "direct main"
+    description:
+      name: eventsource
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.3.0"
   fake_async:
     dependency: transitive
     description:
@@ -83,6 +97,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_calendar:
+    dependency: "direct main"
+    description:
+      name: flutter_calendar
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.9"
   flutter_staggered_grid_view:
     dependency: "direct main"
     description:
@@ -113,14 +134,21 @@ packages:
       name: http
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.12.2"
+    version: "0.13.3"
   http_parser:
     dependency: transitive
     description:
       name: http_parser
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.1.4"
+    version: "4.0.0"
+  intl:
+    dependency: transitive
+    description:
+      name: intl
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.16.1"
   js:
     dependency: transitive
     description:
@@ -128,6 +156,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.6.3"
+  logging:
+    dependency: transitive
+    description:
+      name: logging
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.11.4"
   matcher:
     dependency: transitive
     description:
@@ -219,6 +254,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.2.3"
+  quiver:
+    dependency: transitive
+    description:
+      name: quiver
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.5"
   shared_preferences:
     dependency: "direct main"
     description:
@@ -280,6 +322,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.0"
+  sse_client:
+    dependency: "direct main"
+    description:
+      name: sse_client
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.0"
   stack_trace:
     dependency: transitive
     description:
@@ -301,6 +350,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.0"
+  sync:
+    dependency: transitive
+    description:
+      name: sync
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.0"
   term_glyph:
     dependency: transitive
     description:
@@ -315,6 +371,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.19"
+  tuple:
+    dependency: transitive
+    description:
+      name: tuple
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.3"
   typed_data:
     dependency: transitive
     description:
