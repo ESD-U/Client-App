@@ -1,5 +1,12 @@
+import 'dart:convert';
+
 import 'package:esdu/widgets/list_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
+
+import 'package:sse/client/sse_client.dart';
+import 'package:sse/server/sse_handler.dart';
+import 'package:shelf/shelf_io.dart' as io;
 
 class MainPage extends StatefulWidget {
   const MainPage({Key key}) : super(key: key);
@@ -9,6 +16,28 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  void initState() {
+    super.initState();
+    getData();
+    //streamFiles();
+  }
+
+  double temp;
+  double humi;
+
+  Future<String> getData() async {
+    var response =
+        await get(Uri.parse('https://esdu.herokuapp.com/value/recent'));
+    this.setState(() {
+      String data = response.body;
+      print(data);
+      var currentData = jsonDecode(data);
+      temp = currentData['temperature'];
+      humi = currentData['humidity'];
+    });
+    return "Success";
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -57,7 +86,11 @@ class _MainPageState extends State<MainPage> {
               ),
               SizedBox(height: 20),
               new Expanded(
-                child: ListWidget(),
+                child: temp == null
+                    ? new Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : ListWidget(temp, humi),
               ),
             ],
           ),
