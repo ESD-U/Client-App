@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:sliding_switch/sliding_switch.dart';
 
-Widget ListWidget(double temp, double humi) {
+Widget ListWidget(String temp, String humi) {
   return Padding(
     padding: const EdgeInsets.only(
       left: 22,
@@ -78,7 +78,6 @@ Widget ListWidget(double temp, double humi) {
                     ),
                     Center(
                       child: Text(
-                        //'20',
                         temp.toString(),
                         style: TextStyle(
                           fontFamily: 'sen',
@@ -116,8 +115,7 @@ Widget ListWidget(double temp, double humi) {
                     ),
                     Center(
                       child: Text(
-                        //'20',
-                        humi.toString(),
+                        humi,
                         style: TextStyle(
                           fontFamily: 'sen',
                           color: Colors.white,
