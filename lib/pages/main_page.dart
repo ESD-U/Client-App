@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:esdu/widgets/list_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -13,8 +15,10 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   SseClient channel;
 
-  String temp;
-  String humi;
+  double temp;
+  double humi;
+  var currentData;
+  var a;
 
   @protected
   @mustCallSuper
@@ -24,8 +28,10 @@ class _MainPageState extends State<MainPage> {
     channel = SseClient.connect(Uri.parse("https://esdu.herokuapp.com/value"));
     channel.stream.listen((event) {
       this.setState(() {
-        temp = event.temperature;
-        humi = event.humidity;
+        currentData = event;
+        a = jsonDecode(currentData);
+        temp = a["temperature"];
+        humi = a["himidity"];
       });
     });
   }
@@ -47,7 +53,7 @@ class _MainPageState extends State<MainPage> {
         child: Scaffold(
           appBar: new AppBar(
             backgroundColor: Colors.transparent,
-            elevation: 0.0, // appbar 그림자 농도
+            elevation: 0.0,
             leading: Padding(
               padding: const EdgeInsets.only(left: 20, top: 10),
               child: Icon(
