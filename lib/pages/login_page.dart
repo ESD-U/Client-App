@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
+import 'package:esdu/models/model.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key key}) : super(key: key);
@@ -43,6 +44,8 @@ class _LoginPageState extends State<LoginPage> {
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(builder: (BuildContext context) => MainPage()),
             (Route<dynamic> route) => false);
+        print(jsonResponse['access_token']);
+        Data.accessToken = jsonResponse['access_token'];
       }
     } else {
       setState(() {
@@ -60,7 +63,7 @@ class _LoginPageState extends State<LoginPage> {
         alignment: Alignment.center,
         child: Column(
           children: <Widget>[
-            SizedBox(height: 130),
+            SizedBox(height: 100),
             Center(
               child: SvgPicture.asset(
                 'assets/logo.svg',
