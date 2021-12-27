@@ -1,24 +1,22 @@
 import 'dart:convert';
-
 import 'package:esdu/widgets/list_widget.dart';
 import 'package:flutter/material.dart';
 
 import 'package:sse_client/sse_client.dart';
+import 'package:esdu/models/model.dart';
 
 class MainPage extends StatefulWidget {
-  const MainPage({Key key}) : super(key: key);
-
   @override
   _MainPageState createState() => _MainPageState();
 }
 
 class _MainPageState extends State<MainPage> {
   SseClient channel;
+  SseClient channel2;
 
-  double temp;
-  double humi;
   var currentData;
-  var a;
+  var a, b;
+  var currentData2;
 
   @protected
   @mustCallSuper
@@ -30,8 +28,17 @@ class _MainPageState extends State<MainPage> {
       this.setState(() {
         currentData = event;
         a = jsonDecode(currentData);
-        temp = a["temperature"];
-        humi = a["himidity"];
+        Data.temp = a["temperature"];
+        Data.humi = a["humidity"];
+      });
+    });
+
+    channel2 = SseClient.connect(Uri.parse("https://esdu.herokuapp.com/light"));
+    channel2.stream.listen((event) {
+      this.setState(() {
+        currentData2 = event;
+        b = jsonDecode(currentData2);
+        Data.info = a["info"];
       });
     });
   }
@@ -84,11 +91,12 @@ class _MainPageState extends State<MainPage> {
               ),
               SizedBox(height: 20),
               new Expanded(
-                child: temp == null
-                    ? new Center(
-                        child: CircularProgressIndicator(),
-                      )
-                    : ListWidget(temp, humi),
+                child:
+                    Data.temp == null || Data.humi == null || Data.info == null
+                        ? new Center(
+                            child: CircularProgressIndicator(),
+                          )
+                        : ListWidget(),
               ),
             ],
           ),
