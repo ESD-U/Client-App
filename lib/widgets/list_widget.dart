@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:sliding_switch/sliding_switch.dart';
+import 'package:esdu/models/model.dart';
+import 'package:esdu/widgets/onoff.dart';
 
-Widget ListWidget(double temp, double humi) {
+Widget ListWidget() {
   return Padding(
     padding: const EdgeInsets.only(
       left: 22,
@@ -50,10 +52,15 @@ Widget ListWidget(double temp, double humi) {
                     ),
                     SizedBox(height: 10),
                     SlidingSwitch(
-                      value: false,
+                      value: true, //Data.info,
                       width: 130,
                       onChanged: (bool value) {
-                        print(value);
+                        if (value == false) {
+                          off();
+                        } else {
+                          on();
+                        }
+                        ;
                       },
                     )
                   ],
@@ -78,7 +85,7 @@ Widget ListWidget(double temp, double humi) {
                     ),
                     Center(
                       child: Text(
-                        temp.toString(),
+                        Data.temp.toString(),
                         style: TextStyle(
                           fontFamily: 'sen',
                           color: Colors.white,
@@ -115,7 +122,7 @@ Widget ListWidget(double temp, double humi) {
                     ),
                     Center(
                       child: Text(
-                        humi.toString(),
+                        Data.humi.toString(),
                         style: TextStyle(
                           fontFamily: 'sen',
                           color: Colors.white,
