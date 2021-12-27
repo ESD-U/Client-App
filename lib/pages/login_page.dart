@@ -24,29 +24,31 @@ class _LoginPageState extends State<LoginPage> {
 
   signIn(String id, String password) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    Map data = {
-      'id': id,
-      'password': password,
-    };
-    var jsonResponse = null;
-    var response = await http
-        .post(Uri.parse("https://esdu.herokuapp.com/login"), body: data);
+    var data = jsonEncode({"id": id, "password": password});
+    var jsonResponse;
+    var response = await http.post(
+      Uri.parse("https://esdu.herokuapp.com/login"),
+      headers: {'Content-type': 'application/json'},
+      body: data,
+    );
+
     if (response.statusCode == 200) {
       jsonResponse = json.decode(response.body);
       if (jsonResponse != null) {
         setState(() {
           _isLoading = false;
         });
-        sharedPreferences.setString("token", jsonResponse['token']);
+        sharedPreferences.setString(
+            "access_token", jsonResponse['access_token']);
         Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (BuildContext context) => null),
+            MaterialPageRoute(builder: (BuildContext context) => MainPage()),
             (Route<dynamic> route) => false);
       }
     } else {
       setState(() {
         _isLoading = false;
       });
-      print(response.body);
+      print('e' + response.body);
     }
   }
 
@@ -109,10 +111,7 @@ class _LoginPageState extends State<LoginPage> {
               minWidth: 350,
               height: 55,
               child: RaisedButton(
-                onPressed: () async {
-                  await Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => MainPage()));
-                },
+                onPressed: send,
                 child: Icon(
                   Icons.lock_open,
                   color: Colors.white,
