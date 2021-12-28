@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:sse_client/sse_client.dart';
 import 'package:esdu/models/model.dart';
+import 'package:http/http.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -18,11 +19,30 @@ class _MainPageState extends State<MainPage> {
   var a, b;
   var currentData2;
 
+  Future<String> getData() async {
+    var response =
+        await get(Uri.parse('https://esdu.herokuapp.com/value/recent'));
+    this.setState(() {
+      String data = response.body;
+      var currentData = jsonDecode(data);
+      Data.recentTemp = currentData['temperature'];
+      Data.recentHumi = currentData['humidity'];
+    });
+
+    var response1 =
+        await get(Uri.parse('https://esdu.herokuapp.com/light/recent'));
+    this.setState(() {
+      String data1 = response1.body;
+      var currentData1 = jsonDecode(data1);
+      Data.recentInfo = currentData1['info'];
+    });
+  }
+
   @protected
   @mustCallSuper
-  void initState() {
+  Future<void> initState() {
     super.initState();
-
+    getData();
     channel = SseClient.connect(Uri.parse("https://esdu.herokuapp.com/value"));
     channel.stream.listen((event) {
       this.setState(() {
@@ -34,11 +54,11 @@ class _MainPageState extends State<MainPage> {
     });
 
     channel2 = SseClient.connect(Uri.parse("https://esdu.herokuapp.com/light"));
-    channel2.stream.listen((event) {
+    channel2.stream.listen((event1) {
       this.setState(() {
-        currentData2 = event;
+        currentData2 = event1;
         b = jsonDecode(currentData2);
-        Data.info = a["info"];
+        Data.info = b["info"];
       });
     });
   }
@@ -91,12 +111,7 @@ class _MainPageState extends State<MainPage> {
               ),
               SizedBox(height: 20),
               new Expanded(
-                child:
-                    Data.temp == null || Data.humi == null || Data.info == null
-                        ? new Center(
-                            child: CircularProgressIndicator(),
-                          )
-                        : ListWidget(),
+                child: ListWidget(),
               ),
             ],
           ),
