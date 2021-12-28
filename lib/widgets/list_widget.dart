@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:sliding_switch/sliding_switch.dart';
 import 'package:esdu/models/model.dart';
 import 'package:esdu/widgets/onoff.dart';
 
@@ -20,9 +19,9 @@ Widget ListWidget() {
           crossAxisSpacing: 12,
           staggeredTiles: const <StaggeredTile>[
             StaggeredTile.count(2, 2.7),
-            StaggeredTile.count(2, 2),
+            StaggeredTile.count(2, 1.6),
             StaggeredTile.count(2, 3.2),
-            StaggeredTile.count(2, 2),
+            StaggeredTile.count(2, 1.6),
           ],
           children: <Widget>[
             ClipRRect(
@@ -51,16 +50,14 @@ Widget ListWidget() {
                       ),
                     ),
                     SizedBox(height: 10),
-                    SlidingSwitch(
-                      value: true, //Data.info,
-                      width: 130,
+                    Switch(
+                      value: Data.info == null ? Data.recentInfo : Data.info,
                       onChanged: (bool value) {
                         if (value == false) {
                           off();
                         } else {
                           on();
                         }
-                        ;
                       },
                     )
                   ],
@@ -85,7 +82,9 @@ Widget ListWidget() {
                     ),
                     Center(
                       child: Text(
-                        Data.temp.toString(),
+                        Data.temp == null
+                            ? Data.recentTemp.toString()
+                            : Data.temp.toString(),
                         style: TextStyle(
                           fontFamily: 'sen',
                           color: Colors.white,
@@ -99,9 +98,9 @@ Widget ListWidget() {
             ),
             ClipRRect(
               borderRadius: BorderRadius.circular(30),
-              child: Container(
-                padding: const EdgeInsets.all(7),
-                color: Color(0xff9D9D9D),
+              child: Image.asset(
+                "assets/back.jpg",
+                fit: BoxFit.cover,
               ),
             ),
             ClipRRect(
@@ -122,7 +121,9 @@ Widget ListWidget() {
                     ),
                     Center(
                       child: Text(
-                        Data.humi.toString(),
+                        Data.humi == null
+                            ? Data.recentHumi.toString()
+                            : Data.humi.toString(),
                         style: TextStyle(
                           fontFamily: 'sen',
                           color: Colors.white,
